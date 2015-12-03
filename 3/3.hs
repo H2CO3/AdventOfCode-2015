@@ -2,9 +2,9 @@ import qualified Data.Map as M
 import qualified Data.Set as S
 
 data Coord = Coord { x :: Integer,
-		 			 	 			 	 y :: Integer
-									 }
-									 deriving(Show, Eq, Ord)
+                     y :: Integer
+                   }
+                   deriving(Show, Eq, Ord)
 
 type CoordMap = M.Map Coord Integer
 
@@ -15,8 +15,8 @@ origin = Coord { x = 0, y = 0 }
 
 (|+|) :: Coord -> Coord -> Coord
 (|+|) a b = Coord { x = x a + x b,
-										y = y a + y b
-									}
+                    y = y a + y b
+                  }
 
 step :: Char -> Coord
 step '^' = Coord { x =  0, y =  1 }
@@ -58,4 +58,3 @@ main = do
 	print $ S.size $ mergeMaps s r
 		where
 			startMap = M.singleton origin 1
-			
