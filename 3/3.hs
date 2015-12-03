@@ -43,7 +43,7 @@ twoNPlusZero (car:rest) = car : twoNPlusZero rest
 twoNPlusOne :: [a] -> [a]
 twoNPlusOne [] = []
 twoNPlusOne (car:cadr:rest) = cadr : twoNPlusOne rest
-twoNPlusOne (car:rest) = [] ++ twoNPlusZero rest
+twoNPlusOne (car:rest) = [] ++ twoNPlusOne rest
 
 mergeMaps :: CoordMap -> CoordMap -> S.Set Coord
 mergeMaps m1 m2 = S.union (M.keysSet m1) (M.keysSet m2)
