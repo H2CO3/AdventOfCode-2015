@@ -30,7 +30,7 @@ hasRepeatingPair :: [Char] -> Bool
 hasRepeatingPair [] = False
 hasRepeatingPair [_, _] = False
 hasRepeatingPair (car:cadr:rest) =
-	isInfixOf [car, cadr] rest || hasRepeatingPair (cadr:rest)
+	isInfixOf [car, cadr] rest || hasRepeatingPair (cadr : rest)
 
 hasInfixLetter :: [Char] -> Bool
 hasInfixLetter []           = False
