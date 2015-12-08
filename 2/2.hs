@@ -7,9 +7,7 @@ main = do
 	-- compute areas
 	print $ pairSum $ map computeAreaAndLength dims
 	where
-		pairSum xys = (sum . map get1 $ xys, sum . map get2 $ xys)
-		get1 (x, _) = x
-		get2 (_, y) = y
+		pairSum xys = (sum . map fst $ xys, sum . map snd $ xys)
 		computeAreaAndLength ls = (
 			2 * (a1 + a2 + a3) + minimum [a1, a2, a3],
 			a * b * c + 2 * minimum [l1, l2, l3])
