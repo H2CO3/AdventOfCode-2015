@@ -27,15 +27,12 @@ lightsRange = ((0, 0), (999, 999))
 --
 
 splitCommand :: String -> (CommandKind, String)
-splitCommand line
-	| words !! 0 == "toggle" =
-		(Toggle,  concatFrom 1 words)
-	| words !! 0 == "turn" && words !! 1 == "on" =
-		(TurnOn,  concatFrom 2 words)
-	| words !! 0 == "turn" && words !! 1 == "off" =
-		(TurnOff, concatFrom 2 words)
-	| otherwise =
-		error "invalid command"
+splitCommand line =
+	case words of
+		("toggle":_)     -> (Toggle,  concatFrom 1 words)
+		("turn":"on":_)  -> (TurnOn,  concatFrom 2 words)
+		("turn":"off":_) -> (TurnOff, concatFrom 2 words)
+		_                -> error "invalid command"
 	where
 		words = splitOn " " line
 		concatFrom n xs = concat $ drop n xs
