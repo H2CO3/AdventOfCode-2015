@@ -2,7 +2,7 @@ import Data.List
 
 -- Old Rules
 
-hasThreeVowels = (>= 3) . length . filter	isVowel
+hasThreeVowels = (>= 3) . length . filter isVowel
 	where
 		isVowel :: Char -> Bool
 		isVowel 'a' = True
