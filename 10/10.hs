@@ -13,4 +13,4 @@ lookAndSay = map intToDigit . concat . runLengthEncode 1 . map digitToInt
 
 getSolution iters = length $ last $ take (iters + 1) $ iterate lookAndSay "1113222113"
 
-main = (print $ getSolution 40) >> (print $ getSolution 50)
+main = mapM_ (print . getSolution) [40, 50]

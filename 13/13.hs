@@ -56,4 +56,4 @@ printHappinessForFile fname = do
 	let names = allNames vals
 	print $ maximumHappiness vals names
 
-main = printHappinessForFile "input.txt" >> printHappinessForFile "input2.txt"
+main = mapM_ printHappinessForFile ["input.txt", "input2.txt"]
