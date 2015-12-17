@@ -62,24 +62,19 @@ raceStep state = DeerState {
 		allDeer = deer state
 		leadingDeers = map name $ filter ((== maxDistance) . distance) allDeer
 		distances = map distance allDeer
-		maxDistance = maximum $ distances
+		maxDistance = maximum distances
 		-- Do the same thing as in raceReindeer,
 		-- but only one second at a time, and register
 		-- the best reindeer (those who got the furthest).
-		distance d = (baseTime + extraTime) * speed d
-			where
-				periods = step state `div` period d
-				baseTime = periods * timeOfFlight d
-				extraTime = min (timeOfFlight d) $ step state `mod` period d
+		distance = raceReindeer $ step state
 		-- This function either awards a point to the specified deer
 		-- if its distance is among the highest, otherwise
 		-- it assigns it its original score.
-		updateDeer d = newDeer
-			where
-				newDeer = if elem (name d) leadingDeers then
-					d { points = points d + 1 }
-				else
-					d
+		updateDeer d =
+			if elem (name d) leadingDeers then
+				d { points = points d + 1 }
+			else
+				d
 
 -- Runs all steps of the simulation and returns the last step
 raceReindeerStep :: Int -> [Reindeer] -> DeerState
