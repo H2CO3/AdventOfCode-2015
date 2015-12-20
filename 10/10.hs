@@ -1,16 +1,5 @@
-import Data.Char (intToDigit, digitToInt)
+import Data.List
 
-runLengthEncode :: Int -> [Int] -> [[Int]]
-runLengthEncode _ [] = []
-runLengthEncode n (x:y:rest) =
-	if x /= y then
-		[n, x] : runLengthEncode 1 (y : rest)
-	else
-		runLengthEncode (n + 1) $ y : rest
-runLengthEncode n (x:_) = [[n, x]]
-
-lookAndSay = map intToDigit . concat . runLengthEncode 1 . map digitToInt
-
-getSolution iters = length $ last $ take (iters + 1) $ iterate lookAndSay "1113222113"
-
+lookAndSay = concat . concatMap (\g -> [show $ length g, take 1 g]) . group
+getSolution n = length $ (drop n $ iterate lookAndSay "1113222113") !! 0
 main = mapM_ (print . getSolution) [40, 50]
