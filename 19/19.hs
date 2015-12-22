@@ -15,21 +15,44 @@ parseInput str = (repls, medicine)
 			where
 				sides = splitOn " => " line
 
+replaceAt :: String -> String -> Int -> Int -> String
+replaceAt str sub len idx = take idx str ++ sub ++ drop (idx + len) str
+
+--
+-- Part 1
+--
 substringIndices :: String -> String -> [Int]
 substringIndices str subs = findIndices (isPrefixOf subs) $ tails str
 
 possibleReplacements :: String -> Replacement -> [String]
-possibleReplacements str (orig, subs) = map replaceAt indices
+possibleReplacements str (orig, subs) = map (replaceAt str subs $ length orig) indices
 	where
 		indices = substringIndices str orig
-		replaceAt :: Int -> String
-		replaceAt n = take n str ++ subs ++ drop (n + length orig) str
 
 allReplacements :: String -> [Replacement] -> [String]
 allReplacements str repls = concatMap (possibleReplacements str) repls
+
+--
+-- Part 2
+--
+-- Compute substitutions *backwards*, starting at the medicine molecule
+-- towards the starting "e"lectron; using the biggest possible
+-- substitution. Count the number of steps (== recursive calls)
+-- along the way.
+
+greedyEatString :: [Replacement] -> String -> Int
+greedyEatString _ "e" = 0
+greedyEatString repls s = 1 + greedyEatString repls shortenedStr
+	where
+		sortedRepls = reverse $ sortOn (length . snd) repls
+		repl = head $ filter ((> 0) . length . substringIndices s . snd) sortedRepls
+		shortenedStr = replaceAt s (fst repl) (length $ snd repl) startIdx
+		startIdx = head $ substringIndices s $ snd repl
 
 main = do
 	cont <- readFile "input.txt"
 	let (repls, medicine) = parseInput cont
 	-- Part 1
 	print $ length $ S.fromList $ allReplacements medicine repls
+	-- Part 2
+	print $ greedyEatString repls medicine
