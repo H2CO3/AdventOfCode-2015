@@ -40,7 +40,7 @@ parseInput = map parseLine . lines
 -- Part 1
 --
 cookieScore :: [(Ingredient, Int)] -> Int
-cookieScore cookie = foldl (*) 1 $ map propertyScore
+cookieScore cookie = product $ map propertyScore
 	[capacity, durability, flavor, texture]
 	where
 		propertyScore :: (Ingredient -> Int) -> Int
