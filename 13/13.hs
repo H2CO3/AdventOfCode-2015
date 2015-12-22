@@ -40,7 +40,7 @@ happinessOfPermutation vals perm = sum $ map happinessOfPerson perm
 				right = neighborVal 1
 				neighbor :: Int -> String -> String -- the `offset`-th neighbor of `name`
 				neighbor offset name = perm !! ((idx + offset) `mod` length perm)
-					where idx = nilZero $ findIndex (== name) perm
+					where idx = nilZero $ elemIndex name perm
 
 maximumHappiness :: HappinessValues -> [String] -> Int
 maximumHappiness vals names =

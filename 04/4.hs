@@ -1,7 +1,7 @@
 import Data.Digest.MD5 (hash)
 import Codec.Utils
 import Data.Char
-import Data.List (findIndex)
+import Data.List (elemIndex)
 
 showHexByte :: Int -> [Char]
 showHexByte b = [hi, lo]
@@ -23,7 +23,7 @@ stringMD5 = digestToHex . hash . map (fromIntegral . ord :: Char -> Codec.Utils.
 firstNOfHashes n x = map (take n . stringMD5 . ("ckczppom" ++) . show) x
 
 indexOfFirstStartingWithNZeroes n =
-	findIndex (== nZeros) $ firstNOfHashes n [0..]
+	elemIndex nZeros $ firstNOfHashes n [0..]
 	where
 		nZeros = take n $ repeat '0'
 

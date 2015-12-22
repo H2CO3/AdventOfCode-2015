@@ -55,7 +55,7 @@ filterAunts aunts target useExact = filter candidate aunts
 -- get indices of all possible candidates - hopefully exactly one.
 -- +1 is there because the problem assumes 1-based indexing.
 candidateIndices sues cands =
-	map (+ 1) $ concatMap (\aunt -> findIndices (== aunt) sues) cands
+	map (+ 1) $ concatMap (flip elemIndices $ sues) cands
 
 main = do
 	cont <- readFile "input.txt"
