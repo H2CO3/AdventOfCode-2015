@@ -1,9 +1,7 @@
-import Control.Monad
-import Data.Generics
+import Data.List
 
 parseInput = map (read :: String -> Int) . lines
-powerset = filterM $ const constrs
-powersetSums = map (\s -> (s, sum s)) . powerset
+powersetSums = map (\s -> (s, sum s)) . subsequences
 powersetSumsEqualing s n = map fst $ filter ((== n) . snd) $ powersetSums s
 
 main = do
