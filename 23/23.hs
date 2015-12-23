@@ -40,7 +40,7 @@ parseLine line = case take 3 line of
 		condJmp ctor = ctor (regNamed $ jmpArgs !! 0) (readSigned $ jmpArgs !! 1)
 
 parseInput :: String -> Program
-parseInput = IM.fromList . (zip [0..]) . map parseLine . lines
+parseInput = IM.fromList . zip [0..] . map parseLine . lines
 
 --
 -- Running instructions and programs
